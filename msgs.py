@@ -5,6 +5,13 @@ https://t.me/+utCkhOCbI3NkNDk1
 🚀🚀🚀🚀🚀
 """
 
+HarkiratCourse = """
+🚀🚀🚀🚀🚀
+Harkirat Dsa
+
+🚀🚀🚀🚀🚀
+"""
+
 LoveBabarCourse = """
 DotBatch
 https://t.me/+FO_vLRuSHygyNTM1

@@ -5,20 +5,22 @@ import logging
 import os
 from msgs import gfgMessage, starterMessage, listMessage, helpMessage, aboutMessage, feedbackMessage, resourcesMessage, courseDetails, Cpp_Courses, WebDev
 
-# Initialize bot with token
-token  = os.getenv('telegramToken')
-if not token:
-    raise ValueError("Token Toth dede bsdk")
-bot = telebot.TeleBot(token)
+# Load environment variables from .env file
+load_dotenv()
 
+# Get the bot token from environment variables
 try:
-    load_dotenv()
-    print("env Variable Loaded")
-    print(token)
-except:
-    print('Not able to laoad env varibale')
+    token = os.getenv('telegramToken')
+    print('token setted in env correctyl')
+except ValueError:
+    print("Somethign went Wroing")
 finally:
-    print("Proccess Env Is done")
+    print("token procces dones")
+    
+if not token:
+    raise ValueError("Token not found in environment variables")
+
+bot = telebot.TeleBot(token)
 
 # Logging configuration
 logging.basicConfig(level=logging.INFO)
@@ -38,7 +40,7 @@ def handle_exceptions(func):
 # Command to stop the bot
 @bot.message_handler(commands=['end'])
 @handle_exceptions
-def endMessage(msg):
+def end_message(msg):
     bot.stop_polling()
     bot.reply_to(msg, "Bot is shutting down. Goodbye!")
 
@@ -93,6 +95,12 @@ def send_course_details(msg):
     except IndexError:
         bot.reply_to(msg, "Please provide a course name after the /course command.")
 
+
+@bot.message_handler(commands=['kirat'])
+@handle_exceptions
+def sendKiratCourse(msg):
+    bot.reply_to(msg,)
+
 # Handle feedback
 @bot.message_handler(commands=['feedback'])
 @handle_exceptions
@@ -115,6 +123,21 @@ def send_buttons(msg):
     markup.add(button_gfg, button_cpp)
     bot.send_message(msg.chat.id, "Choose a course:", reply_markup=markup)
 
+# Set commands for the bot
+bot.set_my_commands([
+    types.BotCommand("/start", "Start the bot"),
+    types.BotCommand("/help", "Get help about the bot"),
+    types.BotCommand("/list", "List all available courses"),
+    types.BotCommand("/gfg", "Get GFG DSA course details"),
+    types.BotCommand("/cpp", "Get C++ course details"),
+    types.BotCommand("/about", "About this bot"),
+    types.BotCommand("/course", "Get details about a specific course"),
+    types.BotCommand("/feedback", "Provide feedback"),
+    types.BotCommand("/resources", "Get resources"),
+    types.BotCommand("/buttons", "Show inline buttons example"),
+    types.BotCommand("/end", "Stop the bot"),
+    types.BotCommand("/kirat", "Kirat ka Maal"),
+])
 # Start polling
 try:
     bot.polling()
