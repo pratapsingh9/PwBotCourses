@@ -38,11 +38,7 @@ def handle_exceptions(func):
     return wrapper
 
 # Command to stop the bot
-@bot.message_handler(commands=['end'])
-@handle_exceptions
-def end_message(msg):
-    bot.stop_polling()
-    bot.reply_to(msg, "Bot is shutting down. Goodbye!")
+
 
 # Welcome message with username
 @bot.message_handler(commands=['start'])
@@ -135,7 +131,6 @@ bot.set_my_commands([
     types.BotCommand("/feedback", "Provide feedback"),
     types.BotCommand("/resources", "Get resources"),
     types.BotCommand("/buttons", "Show inline buttons example"),
-    types.BotCommand("/end", "Stop the bot"),
     types.BotCommand("/kirat", "Kirat ka Maal"),
 ])
 # Start polling
